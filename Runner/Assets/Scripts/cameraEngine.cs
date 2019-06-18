@@ -16,7 +16,7 @@ public class cameraEngine : MonoBehaviour
 
     void Start()
     {
-        lookAt = GameObject.FindGameObjectWithTag("Player").transform;
+        lookAt = gameController.Instance.Player.transform;
         startOffset = transform.position - lookAt.position;
     }
 
