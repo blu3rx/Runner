@@ -4,43 +4,56 @@ using UnityEngine;
 
 public class playerEngine : MonoBehaviour
 {
-    private CharacterController controller;
+    
 
-    private Vector3 moveVector;
+    
+    private Vector3 gridPosition;
 
     public float moveSpeed = 5.0f;
-    private float verticalVelocity= 0.0f;
-    private float gravity = 9.8f;
+    private float speed = 1f;
+    public float changeGrid = 1.5f;
+
 
     void Start()
     {
-        controller = GetComponent<CharacterController>();
+       
+        gridPosition = new Vector3Int(0, 0, 0);
+
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        moveVector = Vector3.zero;
+        
 
-        if (controller.isGrounded)
+        //X- Left and Right
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            verticalVelocity = -0.5f;
+            gridPosition.x -= changeGrid;
+
+            if (gridPosition.x < 0)
+                gridPosition.x = -changeGrid;
         }
-        else
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            verticalVelocity -= gravity*Time.deltaTime;
+            gridPosition.x += changeGrid;
+
+            if (gridPosition.x > 0)
+                gridPosition.x = changeGrid;
         }
 
-        //X - Left and Right
-        moveVector.x = Input.GetAxisRaw("Horizontal")*moveSpeed;
 
-        //Y - Up and Down
-        moveVector.y = verticalVelocity;
 
         //Z - Foward and Bacward
-        moveVector.z = moveSpeed;
+        speed += moveSpeed * Time.deltaTime;
 
-        controller.Move(moveVector*Time.deltaTime);
+
+        transform.position = new Vector3(Mathf.Clamp(gridPosition.x, -changeGrid, changeGrid),transform.position.y,speed);
+
+        
+
+
+
     }
 }

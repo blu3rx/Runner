@@ -26,7 +26,7 @@ public class cameraEngine : MonoBehaviour
         moveVector = lookAt.position + startOffset;
 
         //X
-        moveVector.x = 0;
+        
         //Y
         moveVector.y = Mathf.Clamp(moveVector.y, .3f, 5);
 
