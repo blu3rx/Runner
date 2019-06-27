@@ -9,23 +9,23 @@ public class playerEngine : MonoBehaviour
     
     private Vector3 gridPosition;
 
-    public float moveSpeed = 5.0f;
-    private float speed = 1f;
+    [SerializeField]private float moveSpeed = 3.0f;
+    private float speed = 0f;
     public float changeGrid = 1.5f;
+
 
 
     void Start()
     {
        
         gridPosition = new Vector3Int(0, 0, 0);
-
+        
 
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        Debug.Log(moveSpeed);
 
         //X- Left and Right
         if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -55,5 +55,10 @@ public class playerEngine : MonoBehaviour
 
 
 
+    }
+
+    public void SetSpeed(float modifier)
+    {
+        moveSpeed = 5f + modifier;
     }
 }

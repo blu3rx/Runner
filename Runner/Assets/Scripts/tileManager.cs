@@ -27,9 +27,9 @@ public class tileManager : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
-            SpawnTile();
+            SpawnTile(0);
         }
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 5; i++)
         {
             SpawnTile(Random.Range(0, 6));
         }
@@ -50,10 +50,8 @@ public class tileManager : MonoBehaviour
     {
         int  x = Random.Range(0, 5);
 
-        //go = Instantiate(tilePrefabs[0]) as GameObject;
         go = pools[tileNumber].GetNextAvailableObject() as GameObject;
 
-        // go.transform.SetParent(transform);
         go.transform.position = Vector3.forward * spawnZ;
         spawnZ += tileLength;
         activeTiles.Add(go);

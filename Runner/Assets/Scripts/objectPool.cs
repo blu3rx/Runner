@@ -10,7 +10,7 @@ public class objectPool : MonoBehaviour
 
     [SerializeField] private GameObject objectPrefabToPool;
 
-    void Start()
+    void Awake()
     {
 
         goList = new List<GameObject>();
