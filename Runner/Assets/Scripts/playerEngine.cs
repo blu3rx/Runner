@@ -8,9 +8,10 @@ public class playerEngine : MonoBehaviour
 
     
     private Vector3 gridPosition;
+    private Vector2 startTouchPosition, endTouchPosition;
 
 
-    [SerializeField]private float moveSpeed = 3.0f;
+ [SerializeField]private float moveSpeed = 3.0f;
     private float speed = 0f;
     public float changeGrid = 1.5f;
 
@@ -46,24 +47,29 @@ public class playerEngine : MonoBehaviour
                 gridPosition.x = changeGrid;
         }
 
-        if (Input.GetMouseButton(0))
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            startTouchPosition = Input.GetTouch(0).position;
+
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
         {
-            //Right Side
-            if (Input.mousePosition.x > Screen.width / 2)
+            endTouchPosition = Input.GetTouch(0).position;
+
+            if (endTouchPosition.x < startTouchPosition.x)
+            {
+                gridPosition.x -= changeGrid;
+
+                if (gridPosition.x < 0)
+                    gridPosition.x = -changeGrid;
+            }else if(endTouchPosition.x > startTouchPosition.x)
             {
                 gridPosition.x += changeGrid;
 
                 if (gridPosition.x > 0)
                     gridPosition.x = changeGrid;
             }
-            else
-            {
-                gridPosition.x -= changeGrid;
 
-                if (gridPosition.x < 0)
-                    gridPosition.x = -changeGrid;
-            }
         }
+   
 
 
 
