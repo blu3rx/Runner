@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class gameController : MonoBehaviour
 {
@@ -9,13 +10,18 @@ public class gameController : MonoBehaviour
     private static gameController instance;
 
     private GameObject player;
+    public GameObject DeathMenu;
 
     public Text scoreText;
+    public Text endScoreText;
+
 
     private float score = 0f;
     private int difficulty = 1;
     private int maxDifficulty = 10;
     private int scoreToNextLevel = 5;
+
+    private bool gameOver = false;
 
     public void Awake()
     {
@@ -24,17 +30,43 @@ public class gameController : MonoBehaviour
 
         player = GameObject.FindGameObjectWithTag("Player");
 
+
     }
-   
+
     private void Update()
     {
         score += Time.deltaTime;
         scoreText.text = ((int)score).ToString();
 
         if (score >= scoreToNextLevel)
-
             LevelUp();
+
+        if (gameOver)
+        {
+            Time.timeScale = 0f;
+            DeathMenu.SetActive(true);
+            if (score > PlayerPrefs.GetFloat("highScore"))
+                PlayerPrefs.SetFloat("highScore", score);
+
+            endScoreText.text = ((int)score).ToString();
+
+        }
+
     }
+
+    public void Restart()
+    {
+        gameOver = false;
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void ToMenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+
+
 
     void LevelUp()
     {
@@ -43,7 +75,7 @@ public class gameController : MonoBehaviour
 
         scoreToNextLevel *= 2;
         difficulty++;
-        player.GetComponent<playerEngine>().SetSpeed(difficulty*2);
+        player.GetComponent<playerEngine>().SetSpeed(difficulty * 2);
     }
 
     public static gameController Instance
@@ -68,6 +100,14 @@ public class gameController : MonoBehaviour
         get
         {
             return player;
+        }
+    }
+
+    public bool GameOver
+    {
+        set
+        {
+            gameOver = value;
         }
     }
 }
