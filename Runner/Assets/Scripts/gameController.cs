@@ -19,7 +19,7 @@ public class gameController : MonoBehaviour
     private float score = 0f;
     private int difficulty = 1;
     private int maxDifficulty = 10;
-    private int scoreToNextLevel = 5;
+    private int scoreToNextLevel = 10;
 
     private bool gameOver = false;
 
@@ -30,12 +30,14 @@ public class gameController : MonoBehaviour
 
         player = GameObject.FindGameObjectWithTag("Player");
 
+        Application.targetFrameRate = 60;
+
 
     }
 
     private void Update()
     {
-        score += Time.deltaTime;
+        score += Time.deltaTime * difficulty;
         scoreText.text = ((int)score).ToString();
 
         if (score >= scoreToNextLevel)
@@ -72,8 +74,11 @@ public class gameController : MonoBehaviour
     {
         if (difficulty == maxDifficulty)
             return;
+        if (difficulty <= 5)
+            scoreToNextLevel *= 2;
+        else
+            scoreToNextLevel *= 4;
 
-        scoreToNextLevel *= 2;
         difficulty++;
         player.GetComponent<playerEngine>().SetSpeed(difficulty * 2);
     }

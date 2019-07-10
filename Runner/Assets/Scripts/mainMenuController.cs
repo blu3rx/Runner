@@ -8,6 +8,9 @@ public class mainMenuController : MonoBehaviour
 {
     public Text highScoreText;
 
+    public GameObject loadingScreen;
+    public Slider slider;
+
     private void Start()
     {
 
@@ -18,7 +21,23 @@ public class mainMenuController : MonoBehaviour
     public void ToGame()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Game");
+        StartCoroutine(LoadAsynchronously());
+    }
+
+    IEnumerator LoadAsynchronously()
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync("Game");
+
+        loadingScreen.SetActive(true);
+
+        while (!operation.isDone)
+        {
+            float progress = Mathf.Clamp01(operation.progress / .9f);
+
+            slider.value = progress;
+
+            yield return null;
+        }
     }
 
     public void ExitGame()
