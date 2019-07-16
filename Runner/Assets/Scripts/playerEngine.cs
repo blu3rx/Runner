@@ -60,6 +60,7 @@ public class playerEngine : MonoBehaviour
 
                 if (gridPosition.x < 0)
                     gridPosition.x = -changeGrid;
+
             }else if(endTouchPosition.x > startTouchPosition.x)
             {
                 gridPosition.x += changeGrid;

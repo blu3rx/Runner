@@ -100,12 +100,12 @@ public class gameController : MonoBehaviour
         else if (difficulty < 6)
         {
             scoreToNextLevel *= 4;
-            player.GetComponent<playerEngine>().SetSpeed(difficulty * 6);
+            player.GetComponent<playerEngine>().SetSpeed(difficulty * 5);
         }
         else if (difficulty <= 8)
         {
             scoreToNextLevel *= 5;
-            player.GetComponent<playerEngine>().SetSpeed(difficulty * 7);
+            player.GetComponent<playerEngine>().SetSpeed(difficulty * 6);
         }
        
     }

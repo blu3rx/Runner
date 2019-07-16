@@ -41,14 +41,12 @@ public class tileManager : MonoBehaviour
         if (player.position.z - safeZone > (spawnZ - amnTilesOnScreen * tileLength))
         {
             SpawnTile(Random.Range(0,6));
-
             DeleteTile();
         }
     }
 
     private void SpawnTile(int tileNumber=0)
     {
-        int  x = Random.Range(0, 5);
 
         go = pools[tileNumber].GetNextAvailableObject() as GameObject;
 
