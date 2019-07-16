@@ -14,12 +14,15 @@ public class gameController : MonoBehaviour
 
     public Text scoreText;
     public Text endScoreText;
+    public Text levelText;
+    public Text fpsCounter;
 
 
     private float score = 0f;
     private int difficulty = 1;
     private int maxDifficulty = 10;
     private int scoreToNextLevel = 10;
+    public int avgFrameRate;
 
     private bool gameOver = false;
 
@@ -40,6 +43,8 @@ public class gameController : MonoBehaviour
         score += Time.deltaTime * difficulty;
         scoreText.text = ((int)score).ToString();
 
+        levelText.text = ("Level : " + (int)difficulty).ToString();
+
         if (score >= scoreToNextLevel)
             LevelUp();
 
@@ -53,6 +58,11 @@ public class gameController : MonoBehaviour
             endScoreText.text = ((int)score).ToString();
 
         }
+
+        float current = 0;
+        current = (int)(1f / Time.unscaledDeltaTime);
+        avgFrameRate = (int)current;
+        fpsCounter.text = avgFrameRate.ToString() + " FPS";
 
     }
 
@@ -74,13 +84,30 @@ public class gameController : MonoBehaviour
     {
         if (difficulty == maxDifficulty)
             return;
-        if (difficulty <= 5)
-            scoreToNextLevel *= 2;
-        else
-            scoreToNextLevel *= 4;
 
         difficulty++;
-        player.GetComponent<playerEngine>().SetSpeed(difficulty * 2);
+
+        if (difficulty <= 2)
+        {
+            scoreToNextLevel *= 2;
+            player.GetComponent<playerEngine>().SetSpeed(difficulty * 3);
+        }
+        else if(difficulty<=4)
+        {
+            scoreToNextLevel *= 3;
+            player.GetComponent<playerEngine>().SetSpeed(difficulty * 4);
+        }
+        else if (difficulty < 6)
+        {
+            scoreToNextLevel *= 4;
+            player.GetComponent<playerEngine>().SetSpeed(difficulty * 6);
+        }
+        else if (difficulty <= 8)
+        {
+            scoreToNextLevel *= 5;
+            player.GetComponent<playerEngine>().SetSpeed(difficulty * 7);
+        }
+       
     }
 
     public static gameController Instance

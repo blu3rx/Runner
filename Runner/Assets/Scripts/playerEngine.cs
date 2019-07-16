@@ -95,6 +95,6 @@ public class playerEngine : MonoBehaviour
 
     public void SetSpeed(float modifier)
     {
-        moveSpeed = 7f+modifier;
+        moveSpeed = 7+modifier;
     }
 }
