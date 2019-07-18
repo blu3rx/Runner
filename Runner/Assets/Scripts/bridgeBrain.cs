@@ -5,27 +5,26 @@ using UnityEngine;
 public class bridgeBrain : MonoBehaviour
 {
     public List<GameObject> bridgeList;
-    List<GameObject> goList;
-    List<GameObject> objectOne;
 
+
+
+    Dictionary<int,List<GameObject>> poolDict = new Dictionary<int, List<GameObject>>();
 
     public int poolSize;
-    int x = 0;
 
 
     private void Awake()
     {
-        goList = new List<GameObject>();
         for (int i=0; i< bridgeList.Count; i++)
         {
-           
+             poolDict.Add(i, new List<GameObject>());
+
             for (int j = 0; j < poolSize; j++)
             {
                 GameObject tempGO = Instantiate(bridgeList[i]) as GameObject;
                 tempGO.transform.SetParent(transform);
-                goList.Add(tempGO);
-                goList[x].SetActive(false);
-                x++;
+                poolDict[i].Add(tempGO);
+                poolDict[i][j].SetActive(false);
             }
             
         }
@@ -33,14 +32,14 @@ public class bridgeBrain : MonoBehaviour
 
     }
 
-    public GameObject GetNextAvailableObject()
+    public GameObject GetNextAvailableObject1()
     {
-        for (int i = 0; i < x; i++)
+        for (int i = 0; i < poolSize; i++)
         {
-            if (!goList[i].activeSelf)
+            if (poolDict[0][i].activeSelf)
             {
-                goList[i].SetActive(true);
-                return goList[i];
+                poolDict[0][i].SetActive(true);
+                return poolDict[0][i];
             }
 
         }
