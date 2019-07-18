@@ -32,11 +32,11 @@ public class bridgeBrain : MonoBehaviour
 
     }
 
-    public GameObject GetNextAvailableObject1()
+    public GameObject GetNextAvailableObject()
     {
         for (int i = 0; i < poolSize; i++)
         {
-            if (poolDict[0][i].activeSelf)
+            if (!poolDict[0][i].activeSelf)
             {
                 poolDict[0][i].SetActive(true);
                 return poolDict[0][i];

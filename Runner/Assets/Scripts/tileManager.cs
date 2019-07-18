@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class tileManager : MonoBehaviour
 {
-    public objectPool[] pools;
+    public bridgeBrain bridges;
     private List<GameObject> activeTiles = new List<GameObject>();
 
     private float spawnZ = 0f;
@@ -48,8 +48,8 @@ public class tileManager : MonoBehaviour
     private void SpawnTile(int tileNumber=0)
     {
 
-        go = pools[tileNumber].GetNextAvailableObject() as GameObject;
-
+        go = bridges.GetNextAvailableObject() as GameObject;
+        Debug.Log(go);
         go.transform.position = Vector3.forward * spawnZ;
         spawnZ += tileLength;
         activeTiles.Add(go);
