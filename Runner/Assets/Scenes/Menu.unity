@@ -1277,8 +1277,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Beni gazlad\u0131\u011F\u0131n i\xE7in te\u015Fekk\xFCrler bitanem \xDCmm\xFChan
-    <3"
+  m_Text: Made by Axiome
 --- !u!222 &1617008876
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -49,7 +49,6 @@ public class tileManager : MonoBehaviour
     {
 
         go = bridges.GetNextAvailableObject() as GameObject;
-        Debug.Log(go);
         go.transform.position = Vector3.forward * spawnZ;
         spawnZ += tileLength;
         activeTiles.Add(go);

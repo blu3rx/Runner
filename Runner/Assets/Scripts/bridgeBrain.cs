@@ -34,12 +34,14 @@ public class bridgeBrain : MonoBehaviour
 
     public GameObject GetNextAvailableObject()
     {
+        int x = Random.Range(0, poolDict.Count);
+
         for (int i = 0; i < poolSize; i++)
         {
-            if (!poolDict[0][i].activeSelf)
+            if (!poolDict[x][i].activeSelf)
             {
-                poolDict[0][i].SetActive(true);
-                return poolDict[0][i];
+                poolDict[x][i].SetActive(true);
+                return poolDict[x][i];
             }
 
         }
